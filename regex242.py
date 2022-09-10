@@ -52,30 +52,25 @@ def removeZeros(string):
     return string
 
 def findStrings(string):
+    if (len(string)==0):
+        return None
+
     pattern = re.compile(f'\w*ly') # words that end with ly
 
+    res = re.finditer(pattern,string)
     l = []
-    i = 0
-
-    while(True):
-        search = re.search(pattern, string)
-        if (bool(search) == False): #
-            break
-
-        start = search.start()
-        end = search.end()
-        l.append(f'{start+i}-{end+i}: {string[start:end]}')
-
-        string = string[end:]
-        i += end
+    for match_obj in res:
+        word = match_obj.group()
+        start = match_obj.start()
+        end = match_obj.end()
+        l.append(f'{start}-{end}: {word}')
 
     result = ', '.join(l) # make list into string with comma
 
     return result
-
 def main():
     print(findStrings("Clearly, he has no excuse for such behavior.")) #-> 0-7: Clearly
-    print(findStrings("The soldier fought bravely and strongly.")) #-> 19-26: bravely, 31-39: strongly
+    print(findStrings("The soldier fought bravely and strongly sadly.")) #-> 19-26: bravely, 31-39: strongly
     print(findStrings("The boy happily went to home and gladly completed his assignments.")) #-> 8-15: happily, 33-39: gladly
 
 if __name__ == '__main__':

@@ -49,19 +49,51 @@ def numWords(filename):
     nums = []
     with open(filename) as f:
         for line in f:
-            line = f.readline()
             line = re.sub(r'\s+', ' ', line)
             l = line.split()
             number = len(l)
-            print(f"{number}\n")
-            # nums = nums.append(number)
-
+            nums.append(number)
     return nums
 
+def averageWords(filename):
+    l = numWords(filename)
+    avg = sum(l)/len(l)
+    return avg
+
+
+def countLines(filename):
+    l = 0
+    pattern = re.compile(f'\w*ing\w*')
+    with open (filename) as f:
+        for line in f:
+            if (bool(re.search(pattern, line))):
+                l += 1
+    return l
+
+# Write a function to read text from an input file, find all unique palindromes and return them in
+# sorted order.
+
+# findPalindromes(filename) takes as input the file to read the text from, and returns a list of the
+# unique palindromes sorted in decreasing lexicographic order (reverse sorted order), in lower case.
+# You can use your code above for checking if a string is a palindrome.
+
+# For example,
+# filename: palindrome_test.txt
+# output: ['tattarrattat', 'redivider', 'detartrated', 'aibohphobia', 'a']
+
+
+def findPalindromes(filename):
+    with open (filename) as f:
+        l = f.read()
+        return uniquePalindromes(l)
+    ###
+    ### YOUR CODE HERE
+    ###
 
 
 def main():
-    numWords("first.txt")
+    print( countLines('first.txt') )
+
 
 if __name__ == '__main__':
     main()
